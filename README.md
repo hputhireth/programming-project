@@ -4,9 +4,7 @@
 | Documents: | Description |
 |---|---|
 | `Purpose Demo.py` | Loads GloVe, demonstrate cosine similarity, runs the bias demonstrations. |
-| `glove.6B.100d.txt` | The pretrained GloVe word vectors (100-dimensional). It is an unsupervised 
-learning algorithm developed at Stanford University used to generate dense vector representations 
-(embeddings) for words in natural language processing (NLP) |
+| `glove.6B.100d.txt` | developed at Stanford University  |
 | `README.md` | Contains: purpose, context, and sources so far. |
 
 Please **Note that `glove.6B.100d.txt`:** is the 100-dimensional file from Stanford's glove.6B set 
@@ -62,7 +60,7 @@ The direction in this space carries meaning.
 Formula:
 
 $$
-\text{cosine\_sim}(A, B) = \frac{A \cdot B}{\lVert A \rVert \times \lVert B \rVert} = \frac{\sum_i A_i \times B_i}{\sqrt{\sum_i A_i^2} \times \sqrt{\sum_i B_i^2}}
+\cos(A, B) = \frac{A \cdot B}{\lVert A \rVert \, \lVert B \rVert} = \frac{\sum_i A_i B_i}{\sqrt{\sum_i A_i^2} \, \sqrt{\sum_i B_i^2}}
 $$
 
 - It ranges from {-1 to 1}.
@@ -91,9 +89,9 @@ Here are the results from `glove.6B.100d`:
 GloVe's headline property is that relationships are directional, you can add and subtract (Pennington et al., 2014). The classic analogy:
 
 ```
-woman − man + king   ≈   queen
+woman - man + king   ≈   queen
 ```
-This can be itnerpret as *"man is to king as woman is to ___?"*. Geometrically, woman − man isolates a gender-shift direction; 
+This can be itnerpret as *"man is to king as woman is to ___?"*. Geometrically, woman - man isolates a gender-shift direction; 
 adding it to `king` lands near `queen`.
 
 ### The same maths, now surfacing bias
@@ -102,8 +100,8 @@ Nothing about the method changes for the next two queries — only the words do:
 
 | Vector operation | Result | What it reveals |
 |---|---|---|
-|`doctor − male + female` | **nurse** | gendered occupation stereotype |
-|`female − male + programmer` | **animator** | technical role shifted away from "female" |
+|`doctor - male + female` | **nurse** | gendered occupation stereotype |
+|`female - male + programmer` | **animator** | technical role shifted away from "female" |
 
 A fair model would ideally return *doctor* and *programmer* the same professions. It returns *nurse* and *animator* because 
 the training text statistically tied those words to gender that way. The maths is neutral; the bias lives in the data the model
