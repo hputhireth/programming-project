@@ -35,6 +35,16 @@ print(cosine_sim(king_v, queen_v))
 print(cosine_sim(king_v, potato_v))
 print(cosine_sim(doctor_v, physician_v))
 
+def get_closest(embedding_calculation, todrop):
+    closest = "hello"
+    s = 0
+    for word, embedding_vector in embeddings_index.items():
+        if embedding_vector is not None and word not in todrop:
+            x = cosine_sim(embedding_calculation, embedding_vector)
+            if x > s:
+                closest = word
+                s = x
+    return closest
 
 embedding_calculation = woman_v - man_v + king_v
 todrop = ["woman", "king", "man"]
